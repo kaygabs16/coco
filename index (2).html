@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nut of Coco — From Palm to Table</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Public+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --husk: #2b1d14;
+      --husk-deep: #1c1109;
+      --frond: #33502f;
+      --frond-deep: #1f3320;
+      --lagoon: #1f7a8c;
+      --lagoon-deep: #14515e;
+      --gold: #dba233;
+      --cream: #f7f2e6;
+      --cream-dim: #ece3cd;
+      --flesh: #fffdf7;
+      --text-dark: #241a10;
+      --text-mid: #4a4030;
+      --text-muted: #7c715c;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Public Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(28, 17, 9, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo .mark {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: conic-gradient(var(--flesh) 0deg 160deg, var(--frond) 160deg 360deg);
+      border: 1.5px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+
+    .nav-links a {
+      color: rgba(247, 242, 230, 0.7);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--husk-deep) !important;
+      padding: 0.55rem 1.3rem;
+      border-radius: 0.3rem;
+      font-weight: 500 !important;
+    }
+
+    .nav-cta:hover { background: #eab654 !important; color: var(--husk-deep) !important; }
+
+    /* HERO — diptych of the two real photos, market-poster style */
+    .hero {
+      min-height: 100vh;
+      background: var(--husk-deep);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      position: relative;
+      padding-top: 5.2rem;
+    }
+
+    .hero-photos {
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 0.4rem;
+      padding: 0.4rem 0 0.4rem 0.4rem;
+    }
+
+    .hero-photos figure { position: relative; overflow: hidden; border-radius: 0.4rem; }
+    .hero-photos img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.08) contrast(1.03); }
+    .hero-photos figure::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(28,17,9,0) 40%, rgba(28,17,9,0.55) 100%);
+    }
+    .photo-cap {
+      position: absolute; bottom: 0.8rem; left: 1rem; z-index: 2;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 4rem 3rem 3.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      background: rgba(219, 162, 51, 0.14);
+      border: 1px solid rgba(219, 162, 51, 0.4);
+      color: var(--gold);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 0.3rem;
+      margin-bottom: 1.6rem;
+      width: fit-content;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 4.6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 0.98;
+      color: var(--cream);
+      margin-bottom: 1.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em { color: var(--gold); font-style: italic; font-weight: 500; }
+
+    .hero p {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: rgba(247, 242, 230, 0.62);
+      max-width: 440px;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--husk-deep);
+      padding: 0.85rem 1.9rem;
+      border-radius: 0.3rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); background: #eab654; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      padding: 0.85rem 1.9rem;
+      border-radius: 0.3rem;
+      border: 1px solid rgba(247, 242, 230, 0.3);
+      font-size: 0.92rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover { border-color: var(--cream); background: rgba(247, 242, 230, 0.06); }
+
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid rgba(247,242,230,0.12);
+      padding-top: 1.6rem;
+    }
+
+    .hero-stats > div { padding-right: 2.2rem; margin-right: 2.2rem; border-right: 1px solid rgba(247,242,230,0.12); }
+    .hero-stats > div:last-child { border-right: none; }
+
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--cream);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: rgba(247, 242, 230, 0.45);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* TICKER */
+    .ticker-wrap {
+      background: var(--gold);
+      padding: 0.7rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-track { display: inline-flex; gap: 2.5rem; animation: ticker 24s linear infinite; }
+
+    .ticker-track span {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--husk-deep);
+    }
+
+    .ticker-track span::before { content: '◆ '; opacity: 0.55; font-size: 0.6rem; }
+
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SECTIONS */
+    section { padding: 6.5rem 4rem; }
+
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lagoon-deep);
+      font-weight: 500;
+      margin-bottom: 0.9rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.2vw, 2.9rem);
+      font-weight: 900;
+      line-height: 1.08;
+      color: var(--text-dark);
+      letter-spacing: -0.015em;
+      margin-bottom: 1rem;
+    }
+
+    .section-title em { font-style: italic; font-weight: 500; color: var(--frond); }
+
+    .section-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 500px; }
+
+    /* PRODUCTS */
+    .products { background: var(--cream); }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      gap: 1rem;
+    }
+
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; }
+
+    .product-card {
+      background: var(--flesh);
+      border-radius: 0.6rem;
+      overflow: hidden;
+      border: 1px solid var(--cream-dim);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 46px rgba(43, 29, 20, 0.12); }
+
+    .product-stamp {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: var(--flesh);
+      text-align: center;
+      background: var(--frond);
+      border: 1.5px dashed rgba(255,255,255,0.5);
+    }
+
+    .product-card-img {
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card-img .swatch { position: absolute; inset: 0; }
+
+    .product-body { padding: 1.4rem 1.5rem 1.6rem; }
+
+    .product-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lagoon-deep);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.55rem;
+      line-height: 1.2;
+    }
+
+    .product-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.2rem; }
+
+    .product-price {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--husk);
+      border-top: 1px dashed var(--cream-dim);
+      padding-top: 0.8rem;
+    }
+
+    .product-price span { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ABOUT */
+    .about {
+      background: var(--frond-deep);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about .section-title { color: var(--cream); }
+    .about .section-title em { color: var(--gold); }
+    .about .section-tag { color: var(--gold); opacity: 0.85; }
+
+    .about-body { font-size: 0.98rem; line-height: 1.8; color: rgba(247, 242, 230, 0.62); margin-bottom: 2.3rem; }
+
+    .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .value-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-left: 2px solid var(--gold);
+      border-radius: 0.3rem;
+      padding: 1.1rem 1.2rem;
+    }
+
+    .value-title { font-family: var(--font-mono); font-size: 0.82rem; font-weight: 500; color: var(--cream); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .value-text { font-size: 0.82rem; color: rgba(247, 242, 230, 0.48); line-height: 1.55; }
+
+    .about-visual { position: relative; border-radius: 0.6rem; overflow: hidden; aspect-ratio: 4/5; }
+    .about-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .about-visual::after {
+      content: 'FARM · ACCRA COAST';
+      position: absolute; bottom: 1rem; left: 1rem;
+      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.85); background: rgba(28,17,9,0.55);
+      padding: 0.35rem 0.7rem; border-radius: 0.25rem;
+    }
+
+    /* BENEFITS */
+    .benefits { background: var(--cream-dim); }
+
+    .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.3rem; margin-top: 3.2rem; }
+
+    .benefit-card {
+      background: var(--flesh);
+      border-radius: 0.5rem;
+      padding: 1.8rem 1.4rem;
+      border: 1px solid rgba(43, 29, 20, 0.07);
+      transition: transform 0.25s;
+    }
+
+    .benefit-card:hover { transform: translateY(-5px); }
+
+    .benefit-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--lagoon-deep);
+      margin-bottom: 0.9rem;
+      display: block;
+    }
+
+    .benefit-title { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .benefit-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--cream); }
+
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; margin-top: 3.2rem; }
+
+    .testi-card {
+      background: var(--flesh);
+      border-radius: 0.6rem;
+      padding: 1.8rem 1.7rem;
+      border: 1px solid var(--cream-dim);
+      position: relative;
+    }
+
+    .testi-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+    .testi-text { font-size: 0.9rem; line-height: 1.7; color: var(--text-mid); margin-bottom: 1.4rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.7rem; border-top: 1px dashed var(--cream-dim); padding-top: 1rem; }
+    .testi-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--cream-dim); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .testi-name { font-weight: 600; font-size: 0.87rem; color: var(--text-dark); }
+    .testi-loc { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
+
+    /* CONTACT */
+    .contact { background: var(--husk-deep); text-align: center; padding: 7rem 4rem; }
+    .contact .section-title { color: var(--cream); margin-bottom: 1rem; }
+    .contact .section-tag { color: var(--gold); opacity: 0.85; }
+    .contact .section-sub { color: rgba(247, 242, 230, 0.55); margin: 0 auto 2.8rem; text-align: center; max-width: 480px; }
+
+    .contact-form { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-input {
+      width: 100%;
+      padding: 0.9rem 1.1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 0.4rem;
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: rgba(247, 242, 230, 0.32); }
+    .form-input:focus { border-color: var(--gold); }
+    select.form-input option { background: var(--husk-deep); }
+
+    .form-submit {
+      background: var(--gold);
+      color: var(--husk-deep);
+      border: none;
+      border-radius: 0.4rem;
+      padding: 1rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      margin-top: 0.4rem;
+    }
+
+    .form-submit:hover { transform: translateY(-2px); background: #eab654; }
+
+    /* FOOTER */
+    footer { background: #150d07; padding: 3.5rem 4rem 2.2rem; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3.5rem;
+      padding-bottom: 2.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-brand { font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--cream); margin-bottom: 0.7rem; }
+    .footer-brand span { color: var(--gold); }
+    .footer-tagline { font-size: 0.85rem; color: rgba(247, 242, 230, 0.35); line-height: 1.6; }
+
+    .footer-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 230, 0.32);
+      margin-bottom: 1.1rem;
+      font-weight: 500;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col a { color: rgba(247, 242, 230, 0.55); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-family: var(--font-mono); font-size: 0.76rem; color: rgba(247, 242, 230, 0.28); }
+    .footer-socials { display: flex; gap: 0.9rem; }
+
+    .social-btn {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(247, 242, 230, 0.5);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .ticker-track { animation: none; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      nav { padding: 1rem 2rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-photos { height: 340px; padding: 0.4rem 2rem 0 2rem; }
+      .hero-text { padding: 2.5rem 2rem 3rem; }
+      section { padding: 4.5rem 2rem; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .about { grid-template-columns: 1fr; }
+      .about-visual { max-width: 320px; margin: 0 auto; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      nav { padding: 1rem 1.3rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .products-header { flex-direction: column; align-items: flex-start; gap: 1.1rem; }
+      section { padding: 3.5rem 1.3rem; }
+      .hero-stats { flex-wrap: wrap; gap: 1.2rem 0; }
+      .hero-stats > div { padding-right: 1.4rem; margin-right: 1.4rem; }
+      .hero-text { padding: 2.2rem 1.3rem 2.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#"><span class="mark"></span>Nut of <span style="color:var(--gold)">Coco</span></a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#benefits">Benefits</a></li>
+      <li><a href="#contact" class="nav-cta">Order Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home" style="padding-left:0;padding-right:0;">
+    <div class="hero-photos">
+      <figure>
+        <img src="anokub.webp" alt="Freshly husked coconuts ready to drink">
+        <span class="photo-cap">01 — Straight from the palm</span>
+      </figure>
+       <figure>
+        <img src="images/kube.jpg" alt="Fresh coconut cluster growing on the palm">
+        <span class="photo-cap">02 — Husked &amp; ready</span>
+      </figure>
+    </div>
+    <div class="hero-text">
+      <div class="hero-badge">100% Natural &amp; Organic</div>
+      <h1>Pure <em>Coconut,</em><br>Straight From<br>the Source.</h1>
+      <p>From fresh coconuts and cold-pressed coconut water to nourishing oils
+        and wholesome food products — Nut of Coco brings you the full bounty of
+        the coconut palm.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">Shop Products</a>
+        <a href="#about" class="btn-outline">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Organic</span>
+        </div>
+        <div>
+          <span class="hero-stat-num">12+</span>
+          <span class="hero-stat-label">Products</span>
+        </div>
+        <div>
+          <span class="hero-stat-num">5K+</span>
+          <span class="hero-stat-label">Happy Customers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Fresh Coconuts</span><span>Coconut Water</span><span>Coconut Oil</span>
+      <span>Beauty Products</span><span>Coconut Flour</span><span>Coconut Milk</span>
+      <span>Natural &amp; Organic</span><span>Farm to Table</span><span>100% Pure</span>
+      <span>Fresh Coconuts</span><span>Coconut Water</span><span>Coconut Oil</span>
+      <span>Beauty Products</span><span>Coconut Flour</span><span>Coconut Milk</span>
+      <span>Natural &amp; Organic</span><span>Farm to Table</span><span>100% Pure</span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="products-header reveal">
+      <div>
+        <span class="section-tag">Our Range</span>
+        <h2 class="section-title">Everything <em>Coconut</em></h2>
+        <p class="section-sub">Sourced from sun-drenched coastal farms, every product is
+          processed with care to preserve maximum nutrients and natural goodness.</p>
+      </div>
+      <a href="#contact" class="btn-primary" style="white-space:nowrap">View All →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <div class="product-stamp">FRESH</div>
+        <div class="product-card-img"><div class="swatch" style="background:linear-gradient(160deg,#dff0e0,#b9dcc0)"></div></div>
+        <div class="product-body">
+          <span class="product-tag">Fresh &amp; Natural</span>
+          <div class="product-name">Fresh Young Coconuts</div>
+          <p class="product-desc">Tender, freshly harvested coconuts packed with sweet,
+            hydrating water and soft, creamy flesh.</p>
+          <div class="product-price">GH₵8 <span>/ piece</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:0.1s">
+        <div class="product-stamp">PURE</div>
+        <div class="product-card-img"><div class="swatch" style="background:linear-gradient(160deg,#dcf1f6,#9fd6e6)"></div></div>
+        <div class="product-body">
+          <span class="product-tag">Beverages</span>
+          <div class="product-name">Cold-Pressed Coconut Water</div>
+          <p class="product-desc">Electrolyte-rich, naturally sweet coconut water.
+            Zero additives, zero sugar added — just pure hydration.</p>
+          <div class="product-price">GH₵15 <span>/ 500ml</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:0.2s">
+        <div class="product-stamp">COLD<br>PRESS</div>
+        <div class="product-card-img"><div class="swatch" style="background:linear-gradient(160deg,#fcf1d6,#e9c877)"></div></div>
+        <div class="product-body">
+          <span class="product-tag">Oils &amp; Butters</span>
+          <div class="product-name">Virgin Coconut Oil</div>
+          <p class="product-desc">Cold-pressed extra virgin coconut oil. Ideal for
+            cooking, frying, and deep moisturising skin care.</p>
+          <div class="product-price">GH₵55 <span>/ 500ml</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:0.05s">
+        <div class="product-stamp">NATURAL</div>
+        <div class="product-card-img"><div class="swatch" style="background:linear-gradient(160deg,#f6e2ee,#d99cbd)"></div></div>
+        <div class="product-body">
+          <span class="product-tag">Beauty &amp; Skin</span>
+          <div class="product-name">Coconut Beauty Range</div>
+          <p class="product-desc">Natural hair oils, body lotions and scrubs infused
+            with pure coconut. Deeply nourishing, no harsh chemicals.</p>
+          <div class="product-price">GH₵45 <span>/ set</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:0.15s">
+        <div class="product-stamp">GLUTEN<br>FREE</div>
+        <div class="product-card-img"><div class="swatch" style="background:linear-gradient(160deg,#f2ead9,#cdb287)"></div></div>
+        <div class="product-body">
+          <span class="product-tag">Food Products</span>
+          <div class="product-name">Coconut Flour &amp; Desiccated</div>
+          <p class="product-desc">Gluten-free coconut flour and desiccated coconut
+            for baking, smoothies, and cooking. Rich in fibre.</p>
+          <div class="product-price">GH₵28 <span>/ kg</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:0.25s">
+        <div class="product-stamp">DAIRY<br>FREE</div>
+        <div class="product-card-img"><div class="swatch" style="background:linear-gradient(160deg,#e2f5ec,#8fd4b6)"></div></div>
+        <div class="product-body">
+          <span class="product-tag">Dairy-Free</span>
+          <div class="product-name">Coconut Milk &amp; Cream</div>
+          <p class="product-desc">Rich, creamy coconut milk and thick coconut cream.
+            Perfect for cooking, soups, and dairy-free living.</p>
+          <div class="product-price">GH₵20 <span>/ 400ml</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="reveal">
+      <span class="section-tag">Our Story</span>
+      <h2 class="section-title">Rooted in <em>Nature,</em><br>Grown with Love</h2>
+      <p class="about-body">Nut of Coco was born from a deep respect for the coconut
+        palm — the "tree of life" that has nourished West African communities for
+        generations. We source directly from trusted local farmers, process with minimal
+        intervention, and deliver products that are as close to nature as possible.</p>
+      <div class="about-values">
+        <div class="value-card">
+          <div class="value-title">Farm to Shelf</div>
+          <p class="value-text">Direct from our partner farms, no middlemen.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-title">Lab Tested</div>
+          <p class="value-text">Every batch tested for purity and quality.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-title">Zero Waste</div>
+          <p class="value-text">We use every part of the coconut. Nothing wasted.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-title">Community First</div>
+          <p class="value-text">Fair pay for farmers. Profits back into communities.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual reveal" style="transition-delay:0.2s">
+      <img src="images/coconut-tree.webp" alt="Coconuts ripening on the palm at our partner farm">
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits" id="benefits">
+    <div class="reveal" style="text-align:center">
+      <span class="section-tag">Why Coconut?</span>
+      <h2 class="section-title">Packed With <em>Goodness</em></h2>
+      <p class="section-sub" style="margin:0 auto">Nature's most versatile fruit —
+        a powerhouse of nutrition, beauty, and flavour.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <span class="benefit-num">MCT — 01</span>
+        <div class="benefit-title">Boosts Energy</div>
+        <p class="benefit-text">MCTs in coconut oil are rapidly metabolised for
+          instant, clean energy without the sugar crash.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:0.1s">
+        <span class="benefit-num">H₂O — 02</span>
+        <div class="benefit-title">Deep Hydration</div>
+        <p class="benefit-text">Coconut water is nature's sports drink — rich in
+          potassium, sodium, and natural electrolytes.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:0.2s">
+        <span class="benefit-num">SKIN — 03</span>
+        <div class="benefit-title">Skin &amp; Hair Care</div>
+        <p class="benefit-text">Lauric acid fights bacteria and deeply moisturises
+          skin and hair without clogging pores.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:0.3s">
+        <span class="benefit-num">HDL — 04</span>
+        <div class="benefit-title">Heart Healthy</div>
+        <p class="benefit-text">Raises good HDL cholesterol. A natural fat that
+          supports cardiovascular wellbeing when used wisely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="reveal" style="text-align:center">
+      <span class="section-tag">Customer Love</span>
+      <h2 class="section-title">They <em>Love</em> It</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">The coconut water is absolutely divine. I drink a bottle
+          every morning and I've never felt more energised. No nasty additives — just
+          pure coconut goodness.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩🏾</div>
+          <div>
+            <div class="testi-name">Abena Mensah</div>
+            <div class="testi-loc">Accra, Ghana</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:0.12s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">I switched my kitchen entirely to Nut of Coco coconut oil.
+          The flavour is incredible and I love knowing exactly where it comes from.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨🏿</div>
+          <div>
+            <div class="testi-name">Kofi Asante</div>
+            <div class="testi-loc">Kumasi, Ghana</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:0.24s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Their beauty range transformed my hair. The coconut hair
+          oil left my scalp moisturised and my hair softer than it's ever been!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩🏽</div>
+          <div>
+            <div class="testi-name">Ama Darko</div>
+            <div class="testi-loc">Takoradi, Ghana</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <span class="section-tag">Place an Order</span>
+    <h2 class="section-title">Ready to Order?</h2>
+    <p class="section-sub">Fill in the form and our team will get back to you within
+      24 hours to confirm your order and arrange delivery.</p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input class="form-input" type="text" placeholder="Your Full Name" required>
+        <input class="form-input" type="tel" placeholder="Phone Number" required>
+      </div>
+      <input class="form-input" type="email" placeholder="Email Address">
+      <select class="form-input" required>
+        <option value="" disabled selected>Select a Product</option>
+        <option>Fresh Young Coconuts</option>
+        <option>Cold-Pressed Coconut Water</option>
+        <option>Virgin Coconut Oil</option>
+        <option>Coconut Beauty Range</option>
+        <option>Coconut Flour &amp; Desiccated</option>
+        <option>Coconut Milk &amp; Cream</option>
+        <option>Mixed / Multiple Products</option>
+      </select>
+      <input class="form-input" type="text" placeholder="Delivery Location / Area">
+      <textarea class="form-input" rows="3" placeholder="Additional notes or quantities..."
+        style="resize:vertical"></textarea>
+      <button class="form-submit" type="submit">Send Order Request →</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Nut of <span>Coco</span></div>
+        <p class="footer-tagline">Pure. Natural. Coconut.<br>
+          Bringing the full bounty of the palm to your home and table.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#products">Fresh Coconuts</a></li>
+          <li><a href="#products">Coconut Water</a></li>
+          <li><a href="#products">Coconut Oil</a></li>
+          <li><a href="#products">Beauty Range</a></li>
+          <li><a href="#products">Food Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#benefits">Why Coconut?</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+233554913329">+233 554 913 329</a></li>
+          <li><a href="mailto:kaygabs16@gmail.com">kaygabs16@gmail.com</a></li>
+          <li><a href="#contact">Accra, Ghana</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Nut of Coco. All rights reserved.</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="#" aria-label="Instagram">IG</a>
+        <a class="social-btn" href="#" aria-label="Snapchat">SC</a>
+        <a class="social-btn" href="#" aria-label="WhatsApp">WA</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = "Order Sent! We'll be in touch ✓";
+      btn.style.background = '#33502f';
+      btn.style.color = '#f7f2e6';
+      btn.disabled = true;
+    }
+  </script>
+</body>
+
+</html>
